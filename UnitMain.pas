@@ -8,7 +8,7 @@ uses
   CheckLst, Math, ComCtrls, Series, TeEngine, TeeProcs, Chart, Optim1,
   Gauges;
 const
-    EKT=150.574; {77}
+    EKT=150.574; {77} // используется в ФМЭ
 {    EKT=136.4; {85}
 {     EKT=115.9; {100}
 {    EKT=92.75; {125}
@@ -19,13 +19,11 @@ const
       All other values in SI                             ;   }
   MaxPoints=100;
   PointPerInt=50;
-  StrGr1_ColCount=4;  // кол-во столбцов в таблице ( Uь, Ux)
   MaxParameters=8;    // Максимальное число параметров
   MaxRepeat=100;      // Максимальное число повторов
 type
   EditArray = array[1..36] of TEdit;
-  SeriesArray = array[1..9] of TBarSeries;
-  Load_Data = array [1..StrGr1_ColCount,1..MaxPoints] of Extended;
+  SeriesArray = array[1..9] of TBarSeries;  
   Holl   = array[1..4, 1..21] of Extended;
   HollB  = array[1..2, 1..11] of Extended;
   HollRh = array[1..11] of Extended;
@@ -67,7 +65,7 @@ type
     Label29: TLabel;
     Label30: TLabel;
     Label31: TLabel;
-    Chart3: TChart;
+    chtSpectr: TChart;
     Series5: TLineSeries;
     LineSeries1: TLineSeries;
     Chart5: TChart;
@@ -76,12 +74,12 @@ type
     Chart6: TChart;
     LineSeries4: TLineSeries;
     PointSeries2: TPointSeries;
-    Button7: TButton;
+    btnLoadTenzor: TButton;
     OpenDialog2: TOpenDialog;
     GroupBox5: TGroupBox;
     GroupBox6: TGroupBox;
     StringGrid3: TStringGrid;
-    Button8: TButton;
+    btnClearSpectrTable: TButton;
     GroupBox7: TGroupBox;
     Label22: TLabel;
     N10: TMenuItem;
@@ -98,13 +96,13 @@ type
     Series9: TLineSeries;
     Series10: TPointSeries;
     Label24: TLabel;
-    MemoMnog1: TMemo;
-    MemoMnog2: TMemo;
+    mmoFeatFunctionValue: TMemo;
+    mmoFeatMuElectronValue: TMemo;
     Label25: TLabel;
     Label26: TLabel;
     MemoMnog3: TMemo;
     MemoMnog4: TMemo;
-    MemoMnog5: TMemo;
+    mmoConcentrationElectrons: TMemo;
     MemoMnog6: TMemo;
     MemoMnog7: TMemo;
     Label33: TLabel;
@@ -118,13 +116,13 @@ type
     OpenDialogHRes: TOpenDialog;
     SDHallResults: TSaveDialog;
     GroupBox10: TGroupBox;
-    Button15: TButton;
-    Button16: TButton;
+    btnSpectrResult: TButton;
+    btnSpectrResult1: TButton;
     SDSpektrRes: TSaveDialog;
     ODSpektrRes: TOpenDialog;
     GroupBox12: TGroupBox;
-    Button17: TButton;
-    Button18: TButton;
+    btnFeatOnce: TButton;
+    btnFeatMulti: TButton;
     N15: TMenuItem;
     N16: TMenuItem;
     N17: TMenuItem;
@@ -137,8 +135,8 @@ type
     N31: TMenuItem;
     GroupBox13: TGroupBox;
     GroupBox14: TGroupBox;
-    Button19: TButton;
-    Button20: TButton;
+    btnLoadFeatResults: TButton;
+    btnSaveFeatResults: TButton;
     SDHall8Res: TSaveDialog;
     N32: TMenuItem;
     Chart11: TChart;
@@ -286,7 +284,7 @@ type
     TabSheet13: TTabSheet;
     Memo8: TMemo;
     Label73: TLabel;
-    ButtonNext1: TButton;
+    btnFeat: TButton;
     procedure CreateTabs;
     procedure FormCreate(Sender: TObject);
 
@@ -301,7 +299,7 @@ type
     procedure Statistic(mass:DataValue; Edit:EditArray; m,n:Integer);
     procedure N9Click(Sender: TObject);
 
-    procedure Button7Click(Sender: TObject);
+    procedure btnLoadTenzorClick(Sender: TObject);
     procedure MakeInterpolate;
     procedure MakeMNK(a:boolean);
     procedure MakeLagranj;
@@ -312,14 +310,14 @@ type
     procedure Addpoints(Chart:TChart);
     procedure AddPoints2;
     procedure MobilitySpectrum;
-    procedure Chart3ClickSeries(Sender: TCustomChart; Series: TChartSeries;
+    procedure chtSpectrClickSeries(Sender: TCustomChart; Series: TChartSeries;
       ValueIndex: Integer; Button: TMouseButton; Shift: TShiftState; X,
       Y: Integer);
     procedure FormDestroy(Sender: TObject);
-    procedure Chart3MouseMove(Sender: TObject; Shift: TShiftState; X,
+    procedure chtSpectrMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure SetGridFocus(SGrid: TStringGrid; r:integer);
-    procedure Button8Click(Sender: TObject);
+    procedure btnClearSpectrTableClick(Sender: TObject);
    
     procedure Button10Click(Sender: TObject);
     procedure Button12Click(Sender: TObject);
@@ -347,10 +345,10 @@ type
     procedure Scale_FME(FpFme:Holl);
     procedure ShowGraphics(Edit:EditArray; n:Integer; Graph:Proc);
 
-    procedure Button16Click(Sender: TObject);
-    procedure Button15Click(Sender: TObject);
-    procedure Button17Click(Sender: TObject);
-    procedure Button18Click(Sender: TObject);
+    procedure btnSpectrResult1Click(Sender: TObject);
+    procedure btnSpectrResultClick(Sender: TObject);
+    procedure btnFeatOnceClick(Sender: TObject);
+    procedure btnFeatMultiClick(Sender: TObject);
     procedure N32Click(Sender: TObject);
     procedure Button23Click(Sender: TObject);
     procedure Button22Click(Sender: TObject);
@@ -359,8 +357,8 @@ type
     procedure Button27Click(Sender: TObject);
     procedure Button26Click(Sender: TObject);
     procedure Button25Click(Sender: TObject);
-    procedure Button20Click(Sender: TObject);
-    procedure Button19Click(Sender: TObject);
+    procedure btnSaveFeatResultsClick(Sender: TObject);
+    procedure btnLoadFeatResultsClick(Sender: TObject);
     procedure Button28Click(Sender: TObject);
     procedure N35Click(Sender: TObject);
     procedure Button29Click(Sender: TObject);
@@ -378,7 +376,7 @@ type
     procedure Button32Click(Sender: TObject);
     procedure Button34Click(Sender: TObject);
     procedure Button35Click(Sender: TObject);
-    procedure ButtonNext1Click(Sender: TObject);
+    procedure btnFeatClick(Sender: TObject);
 
 
   private
@@ -395,10 +393,10 @@ type
     Index:word;
     Value:extended;
     end;
-  ImageDat=array [0..1] of extended;
-  PImageDat=^ImageDat;
-  ImageDat3=array[0..1] of peakinfo;
-  PImageDat3=^ImageDat3;
+  ImageDat=array [0..(PointPerInt-1)*PointPerInt] of extended;
+  PImageDat=^ImageDat;  // указатель на массив из двух элементов.
+  //ImageDat3=array[0..1] of peakinfo;
+  //PImageDat3=^ImageDat3;
   Data_spektr=array [0..MaxPoints] of extended;
   mat=array[0..MaxPoints,0..MaxPoints] of extended;
   Dat1=array[1..MaxPoints] of extended;
@@ -408,11 +406,7 @@ type
 var
   Form1: TForm1;
   e:Extended;
-  bufer:string; // копия текстового буфера обмена при нажатии Ctrl+V над ячейкой
-  HollMas: Holl;  // Проводимость Холла и эффект Холла в вольтах
-  HollMasB, Sigma_XX_XY: HollB; // Усреднённые по B
-  Rh, Sigma, pRating,MpRating            :HollRh;    // Rх
-  Load_Holl                              :Load_Data;
+ 
   NPoint,NPoint_hm                       :Integer;
   fil, fil_hall8, Data_File, Config_File :text;
   muP,Ex,D,UPh,UGrad,UGrad0,UDif,UDif0,
@@ -431,7 +425,7 @@ var
   IntGxx,IntGxy,IntMagField,Spectr_e,Spectr_p,Mobility,
   QSpectr_e,QSpectr_p,Axx,Axy,Axx_d,Axy_d,
   dIntGxx,dIntGxy,QGxx,QGxy,dQGxx,dQGxy  :PImageDat;
-  Peak_e,Peak_p,Valley_e,Valley_p        :PImageDat3;
+  //Peak_e,Peak_p,Valley_e,Valley_p        :PImageDat3;
   SizeData                               :longint;
   B_spektr,Gxx_sp,Gxx_MC,Gxy_MC,
   Gxy_sp,Xr,Lv,Xv,Mv,Vpr                 :Dat1;
@@ -547,7 +541,7 @@ var i,j:word;
 procedure TForm1.AddPoints2;
 var sf,b1,b2:extended;
 begin
-   with Chart3 do
+   with chtSpectr do
     begin
       with BottomAxis do
        begin
@@ -759,7 +753,7 @@ begin
      Series[0].Clear;
     end;
    GetLnLimits(Lmin,Lmax);
-   SizeData:=(Lmax-Lmin+1)*sizeof(extended)*PointPerInt;
+   SizeData:=(Lmax-Lmin+1)*sizeof(ImageDat);
    InitArray;
    k:=0;
    for i:=0 to (lmax-lmin) do
@@ -898,7 +892,7 @@ begin
      begin
       AddExpPoints; // добавляет точки на график, не логарифмически
       GetLnLimits(Lmin,Lmax); // получает пределы, логарифмические
-      SizeData:=(Lmax-Lmin+1)*sizeof(extended)*PointPerInt; // считаем размер данных
+      SizeData:=(Lmax-Lmin+1)*sizeof(ImageDat); // считаем размер данных
       InitArray;  // выделяем его
       k:=0;
       for i:=0 to (lmax-lmin) do
@@ -1304,13 +1298,13 @@ begin
     // интересно что это за числа ниже?
     Tred2(NumberOfPoints,6e-4913,Lv,Xv,am,Qm,bulua);
     Imtql2(NumberOfPoints,5.42e-20,Lv,Xv,Qm,bulua);
-   with Chart3 do
+   with chtSpectr do
     begin
      Series[0].Clear;
      Series[1].Clear;
     end;
    Lmin:=MSLeft;LMax:=MSRight;
-   SizeData:=(Lmax-Lmin+1)*sizeof(extended)*PointPerInt;
+   SizeData:=(Lmax-Lmin+1)*sizeof(ImageDat);
    InitArray2;
    k:=0;
    for i:=0 to (lmax-lmin) do
@@ -1322,8 +1316,8 @@ begin
        Mobility^[k]:=sf;
        Spectr_e^[k]:=S_s(-sf);
        Spectr_p^[k]:=S_s(sf);
-       Chart3.Series[0].AddXY(Mobility^[k],Spectr_e^[k],'',clTeeColor);
-       Chart3.Series[1].AddXY(Mobility^[k],Spectr_p^[k],'',clTeeColor);
+       chtSpectr.Series[0].AddXY(Mobility^[k],Spectr_e^[k],'',clTeeColor);
+       chtSpectr.Series[1].AddXY(Mobility^[k],Spectr_p^[k],'',clTeeColor);
        sf:=lm*exp(j/PointPerInt*ln(10));
        inc(k);
        if sf>10 then break;
@@ -1345,7 +1339,7 @@ begin
 end;
 
       // Загрузка данных из файла
-procedure TForm1.Button7Click(Sender: TObject);
+procedure TForm1.btnLoadTenzorClick(Sender: TObject);
 var  i:word;
 begin
  OpenDialog2.Title:='Открытие файла с компонентами тензора проводимости';
@@ -1400,7 +1394,7 @@ begin
 end;
 
 
-procedure TForm1.Chart3ClickSeries(Sender: TCustomChart;
+procedure TForm1.chtSpectrClickSeries(Sender: TCustomChart;
   Series: TChartSeries; ValueIndex: Integer; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var Mu,G_e,G_p,con_p,con_e:extended;
@@ -1408,7 +1402,7 @@ var Mu,G_e,G_p,con_p,con_e:extended;
 
 begin
 
-with chart3 do
+with chtSpectr do
    begin
     ind:=Series5.GetCursorValueIndex;
     Ind2:= LineSeries1.GetCursorValueIndex;
@@ -1466,13 +1460,13 @@ begin
   StringGrid3.Selection:=Cell_Focus;
 end;
 
-procedure TForm1.Chart3MouseMove(Sender: TObject; Shift: TShiftState; X,
+procedure TForm1.chtSpectrMouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
   SetGridFocus(StringGrid3,RowInFocus);
 end;
 
-procedure TForm1.Button8Click(Sender: TObject);
+procedure TForm1.btnClearSpectrTableClick(Sender: TObject);
 var i,j:integer;
 begin
   for i:=1 to StringGrid3.RowCount-1 do
@@ -1524,7 +1518,7 @@ begin
 end;
 
 
-procedure TForm1.Button15Click(Sender: TObject);
+procedure TForm1.btnSpectrResultClick(Sender: TObject);
 begin
   if ODSpektrRes.Execute then
   begin
@@ -1562,7 +1556,7 @@ begin
 
 end;
 
-procedure TForm1.Button16Click(Sender: TObject);
+procedure TForm1.btnSpectrResult1Click(Sender: TObject);
 begin
   if SDSpektrRes.Execute then
   begin
@@ -1611,14 +1605,14 @@ begin
          Memo6.Lines.LoadFromFile(OpenDialog3.FileName);
          Label42.Caption:=OpenDialog3.FileName;
          Button27.Enabled:=True;
-         button17.Enabled:=True;
-         button18.Enabled:=True;
+         btnFeatOnce.Enabled:=True;
+         btnFeatMulti.Enabled:=True;
          N3.Enabled:=True;
          N29.Enabled:=True;
        except
          Button27.Enabled:=False;
-         button17.Enabled:=False;
-         button18.Enabled:=False;
+         btnFeatOnce.Enabled:=False;
+         btnFeatMulti.Enabled:=False;
          N3.Enabled:=False;
          N29.Enabled:=False;
          ShowMessage('Ошибка загрузки данных');
@@ -1669,11 +1663,11 @@ begin
    Form1.Series8.Clear;
    Form1.Series9.Clear;
    Form1.Series10.Clear;
-   Form1.MemoMnog1.Lines.Add(FloatToStr(func_hall8));
-   form1.MemoMnog2.Lines.Add(FloatToStr(DATA[1]));
+   Form1.mmoFeatFunctionValue.Lines.Add(FloatToStr(func_hall8));
+   form1.mmoFeatMuElectronValue.Lines.Add(FloatToStr(DATA[1]));
    form1.MemoMnog3.Lines.Add(FloatToStr(DATA[2]));
    form1.MemoMnog4.Lines.Add(FloatToStr(DATA[3]));
-   Form1.MemoMnog5.Lines.Add(FloatToStr(DATA[4]));
+   Form1.mmoConcentrationElectrons.Lines.Add(FloatToStr(DATA[4]));
    form1.MemoMnog6.Lines.Add(FloatToStr(DATA[5]));
    form1.MemoMnog7.Lines.Add(FloatToStr(DATA[6]));
    for i:=0 to NPoint-1  do
@@ -1720,8 +1714,8 @@ begin
   end;
 end;
 
-procedure TForm1.Button17Click(Sender: TObject);
-begin    // это однократная подгонка. Насколько я знаю была не оптимизирована.
+procedure TForm1.btnFeatOnceClick(Sender: TObject);
+begin    // однократная подгонка.
   Pnl_Pr_Hall8.Font.Color:=clRed;
   Pnl_Pr_Hall8.Caption:='Подгонка...';
   GraphON_hall:=True;
@@ -1730,7 +1724,7 @@ begin    // это однократная подгонка. Насколько я знаю была не оптимизирована.
   Pnl_Pr_Hall8.Caption:='Готово';
 end;
 
-procedure TForm1.Button18Click(Sender: TObject);
+procedure TForm1.btnFeatMultiClick(Sender: TObject);
 var  i,l:Integer; fmin:Extended; SerArr:SeriesArray; EditArr:EditArray;
 begin
   for l:=1 to 7 do
@@ -1861,16 +1855,16 @@ begin
     OpenDialog3.FileName:=GetCurrentDir+'\Из спектра подвижности.hs';
     Label42.Caption:=OpenDialog3.FileName;
     Memo6.Lines.SaveToFile(OpenDialog3.FileName);
-    Form1.button17.Enabled:=True;
-    Form1.button18.Enabled:=True;
+    Form1.btnFeatOnce.Enabled:=True;
+    Form1.btnFeatMulti.Enabled:=True;
     Form1.N29.Enabled:=True;
     Button27.Enabled:=True;
     Button27.Click;
    end
   else
   begin
-    Form1.button17.Enabled:=False;
-    Form1.button18.Enabled:=False;
+    Form1.btnFeatOnce.Enabled:=False;
+    Form1.btnFeatMulti.Enabled:=False;
     Form1.N29.Enabled:=False;
     Button27.Enabled:=False;
   end;
@@ -1906,11 +1900,11 @@ begin
    end
   else
   begin
-     Writeln(Data_File,MemoMnog1.Lines[MemoMnog1.Lines.Count-1]);
-     Writeln(Data_File,MemoMnog2.Lines[MemoMnog2.Lines.Count-1]
+     Writeln(Data_File,mmoFeatFunctionValue.Lines[mmoFeatFunctionValue.Lines.Count-1]);
+     Writeln(Data_File,mmoFeatMuElectronValue.Lines[mmoFeatMuElectronValue.Lines.Count-1]
      +'	'+MemoMnog3.Lines[MemoMnog3.Lines.Count-1]
      +'	'+MemoMnog4.Lines[MemoMnog4.Lines.Count-1]
-     +'	'+MemoMnog5.Lines[MemoMnog5.Lines.Count-1]
+     +'	'+mmoConcentrationElectrons.Lines[mmoConcentrationElectrons.Lines.Count-1]
      +'	'+MemoMnog6.Lines[MemoMnog6.Lines.Count-1]
      +'	'+MemoMnog7.Lines[MemoMnog7.Lines.Count-1]);
      for i:=0 to NPoint-1 do
@@ -1921,7 +1915,7 @@ begin
   end;
 end;
 
-procedure TForm1.Button20Click(Sender: TObject);
+procedure TForm1.btnSaveFeatResultsClick(Sender: TObject);
 begin
   if SDHall8Res.Execute then
   begin
@@ -1953,11 +1947,11 @@ begin
     Form1.Series8.Clear;
     Form1.Series9.Clear;
     Form1.Series10.Clear;
-    Form1.MemoMnog1.Lines.Add(FloatToStr(f));
-    form1.MemoMnog2.Lines.Add(FloatToStr(DATA[1]));
+    Form1.mmoFeatFunctionValue.Lines.Add(FloatToStr(f));
+    form1.mmoFeatMuElectronValue.Lines.Add(FloatToStr(DATA[1]));
     form1.MemoMnog3.Lines.Add(FloatToStr(DATA[2]));
     form1.MemoMnog4.Lines.Add(FloatToStr(DATA[3]));
-    Form1.MemoMnog5.Lines.Add(FloatToStr(DATA[4]));
+    Form1.mmoConcentrationElectrons.Lines.Add(FloatToStr(DATA[4]));
     form1.MemoMnog6.Lines.Add(FloatToStr(DATA[5]));
     form1.MemoMnog7.Lines.Add(FloatToStr(DATA[6]));
    for i:=0 to NPoint-1  do
@@ -1975,7 +1969,7 @@ begin
  end; 
 end;
 
-procedure TForm1.Button19Click(Sender: TObject);
+procedure TForm1.btnLoadFeatResultsClick(Sender: TObject);
 begin
   if ODHall8Res.Execute then
   begin
@@ -3227,7 +3221,7 @@ begin
   end;
 
 end;
-procedure TForm1.ButtonNext1Click(Sender: TObject);
+procedure TForm1.btnFeatClick(Sender: TObject);
 begin
 PageControl1.TabIndex:=2;
 Button12.Click;

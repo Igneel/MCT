@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 152
-  Top = 187
+  Left = 197
+  Top = 182
   BorderStyle = bsSingle
   Caption = #1050#1056#1058
   ClientHeight = 633
@@ -23,7 +23,7 @@ object Form1: TForm1
     Top = 0
     Width = 1079
     Height = 633
-    ActivePage = TabSheet2
+    ActivePage = TabSheet5
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -113,7 +113,7 @@ object Form1: TForm1
           Font.Style = [fsItalic]
           ParentFont = False
         end
-        object Chart3: TChart
+        object chtSpectr: TChart
           Left = 8
           Top = 24
           Width = 561
@@ -123,7 +123,7 @@ object Form1: TForm1
           BackWall.Brush.Style = bsClear
           Title.Text.Strings = (
             '')
-          OnClickSeries = Chart3ClickSeries
+          OnClickSeries = chtSpectrClickSeries
           BottomAxis.Logarithmic = True
           BottomAxis.Title.Caption = #1055#1086#1076#1074#1080#1078#1085#1086#1089#1090#1100', '#1084'^2/'#1042'/'#1089
           BottomAxis.Title.Font.Charset = RUSSIAN_CHARSET
@@ -142,7 +142,7 @@ object Form1: TForm1
           BevelInner = bvRaised
           BevelOuter = bvLowered
           TabOrder = 0
-          OnMouseMove = Chart3MouseMove
+          OnMouseMove = chtSpectrMouseMove
           object Label22: TLabel
             Left = 8
             Top = 8
@@ -211,7 +211,7 @@ object Form1: TForm1
             154
             157)
         end
-        object Button8: TButton
+        object btnClearSpectrTable: TButton
           Left = 457
           Top = 404
           Width = 105
@@ -225,7 +225,7 @@ object Form1: TForm1
           ParentFont = False
           TabOrder = 2
           WordWrap = True
-          OnClick = Button8Click
+          OnClick = btnClearSpectrTableClick
         end
         object GroupBox7: TGroupBox
           Left = 8
@@ -234,7 +234,7 @@ object Form1: TForm1
           Height = 89
           Caption = #1044#1072#1085#1085#1099#1077
           TabOrder = 3
-          object Button7: TButton
+          object btnLoadTenzor: TButton
             Left = 8
             Top = 24
             Width = 153
@@ -247,7 +247,7 @@ object Form1: TForm1
             Font.Style = []
             ParentFont = False
             TabOrder = 0
-            OnClick = Button7Click
+            OnClick = btnLoadTenzorClick
           end
         end
         object GroupBox10: TGroupBox
@@ -257,7 +257,7 @@ object Form1: TForm1
           Height = 89
           Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090#1099
           TabOrder = 4
-          object Button15: TButton
+          object btnSpectrResult: TButton
             Left = 8
             Top = 24
             Width = 153
@@ -270,9 +270,9 @@ object Form1: TForm1
             Font.Style = []
             ParentFont = False
             TabOrder = 0
-            OnClick = Button15Click
+            OnClick = btnSpectrResultClick
           end
-          object Button16: TButton
+          object btnSpectrResult1: TButton
             Left = 8
             Top = 56
             Width = 153
@@ -285,17 +285,17 @@ object Form1: TForm1
             Font.Style = []
             ParentFont = False
             TabOrder = 1
-            OnClick = Button16Click
+            OnClick = btnSpectrResult1Click
           end
         end
-        object ButtonNext1: TButton
+        object btnFeat: TButton
           Left = 440
           Top = 536
           Width = 75
           Height = 25
           Caption = #1044#1072#1083#1077#1077
           TabOrder = 5
-          OnClick = ButtonNext1Click
+          OnClick = btnFeatClick
         end
       end
       object GroupBox6: TGroupBox
@@ -594,94 +594,94 @@ object Form1: TForm1
           ImageIndex = 1
           ParentFont = False
           object Label34: TLabel
-            Left = 768
+            Left = 680
             Top = 488
-            Width = 16
+            Width = 194
             Height = 19
-            Caption = 'p1'
+            Caption = #1050#1086#1085#1094#1077#1085#1090#1088#1072#1094#1080#1103' '#1083#1105#1075#1082#1080#1093' '#1076#1099#1088#1086#1082
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clNavy
             Font.Height = -16
             Font.Name = 'Times New Roman'
-            Font.Style = [fsBold, fsItalic]
+            Font.Style = []
             ParentFont = False
           end
           object Label37: TLabel
             Left = 360
             Top = 400
-            Width = 64
+            Width = 61
             Height = 19
             Caption = #1060#1091#1085#1082#1094#1080#1103
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clNavy
             Font.Height = -16
             Font.Name = 'Times New Roman'
-            Font.Style = [fsBold, fsItalic]
+            Font.Style = []
             ParentFont = False
           end
           object Label35: TLabel
-            Left = 952
+            Left = 880
             Top = 488
-            Width = 16
+            Width = 179
             Height = 19
-            Caption = 'p2'
+            Caption = #1050#1086#1085#1094#1077#1085#1090#1088#1072#1094#1080#1103' '#1090#1103#1078'. '#1076#1099#1088#1086#1082
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clNavy
             Font.Height = -16
             Font.Name = 'Times New Roman'
-            Font.Style = [fsBold, fsItalic]
+            Font.Style = []
             ParentFont = False
           end
           object Label33: TLabel
-            Left = 592
+            Left = 496
             Top = 488
-            Width = 9
+            Width = 181
             Height = 19
-            Caption = 'n'
+            Caption = #1050#1086#1085#1094#1077#1085#1090#1088#1072#1094#1080#1103' '#1101#1083#1077#1082#1090#1088#1086#1085#1086#1074
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clNavy
             Font.Height = -16
             Font.Name = 'Times New Roman'
-            Font.Style = [fsBold, fsItalic]
+            Font.Style = []
             ParentFont = False
           end
           object Label26: TLabel
-            Left = 952
+            Left = 888
             Top = 400
-            Width = 42
+            Width = 172
             Height = 19
-            Caption = 'Mu p2'
+            Caption = #1055#1086#1076#1074#1080#1078#1085#1086#1089#1090#1100' '#1090#1103#1078'. '#1076#1099#1088#1086#1082
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clNavy
             Font.Height = -16
             Font.Name = 'Times New Roman'
-            Font.Style = [fsBold, fsItalic]
+            Font.Style = []
             ParentFont = False
           end
           object Label25: TLabel
-            Left = 768
+            Left = 696
             Top = 400
-            Width = 42
+            Width = 187
             Height = 19
-            Caption = 'Mu p1'
+            Caption = #1055#1086#1076#1074#1080#1078#1085#1086#1089#1090#1100' '#1083#1105#1075#1082#1080#1093' '#1076#1099#1088#1086#1082
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clNavy
             Font.Height = -16
             Font.Name = 'Times New Roman'
-            Font.Style = [fsBold, fsItalic]
+            Font.Style = []
             ParentFont = False
           end
           object Label24: TLabel
-            Left = 568
+            Left = 496
             Top = 400
-            Width = 35
+            Width = 178
             Height = 19
-            Caption = 'Mu n'
+            Caption = #1055#1086#1076#1074#1080#1078#1085#1086#1089#1090#1100' '#1069#1083#1077#1082#1090#1088#1086#1085#1086#1074
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clNavy
             Font.Height = -16
             Font.Name = 'Times New Roman'
-            Font.Style = [fsBold, fsItalic]
+            Font.Style = []
             ParentFont = False
           end
           object GroupBox12: TGroupBox
@@ -699,7 +699,7 @@ object Form1: TForm1
             ParentColor = False
             ParentFont = False
             TabOrder = 0
-            object Button18: TButton
+            object btnFeatMulti: TButton
               Left = 16
               Top = 56
               Width = 193
@@ -713,9 +713,9 @@ object Form1: TForm1
               Font.Style = []
               ParentFont = False
               TabOrder = 0
-              OnClick = Button18Click
+              OnClick = btnFeatMultiClick
             end
-            object Button17: TButton
+            object btnFeatOnce: TButton
               Left = 16
               Top = 24
               Width = 193
@@ -729,7 +729,7 @@ object Form1: TForm1
               Font.Style = []
               ParentFont = False
               TabOrder = 1
-              OnClick = Button17Click
+              OnClick = btnFeatOnceClick
             end
           end
           object GroupBox13: TGroupBox
@@ -840,7 +840,7 @@ object Form1: TForm1
             TabOrder = 4
             WordWrap = False
           end
-          object MemoMnog5: TMemo
+          object mmoConcentrationElectrons: TMemo
             Left = 496
             Top = 504
             Width = 193
@@ -872,7 +872,7 @@ object Form1: TForm1
             TabOrder = 6
             WordWrap = False
           end
-          object MemoMnog2: TMemo
+          object mmoFeatMuElectronValue: TMemo
             Left = 496
             Top = 424
             Width = 193
@@ -888,7 +888,7 @@ object Form1: TForm1
             TabOrder = 7
             WordWrap = False
           end
-          object MemoMnog1: TMemo
+          object mmoFeatFunctionValue: TMemo
             Left = 304
             Top = 424
             Width = 185
@@ -1013,7 +1013,7 @@ object Form1: TForm1
             ParentColor = False
             ParentFont = False
             TabOrder = 11
-            object Button19: TButton
+            object btnLoadFeatResults: TButton
               Left = 48
               Top = 24
               Width = 153
@@ -1026,9 +1026,9 @@ object Form1: TForm1
               Font.Style = []
               ParentFont = False
               TabOrder = 0
-              OnClick = Button19Click
+              OnClick = btnLoadFeatResultsClick
             end
-            object Button20: TButton
+            object btnSaveFeatResults: TButton
               Left = 48
               Top = 56
               Width = 153
@@ -1041,7 +1041,7 @@ object Form1: TForm1
               Font.Style = []
               ParentFont = False
               TabOrder = 1
-              OnClick = Button20Click
+              OnClick = btnSaveFeatResultsClick
             end
           end
           object Pnl_Pr_Hall8: TPanel
@@ -2885,7 +2885,7 @@ object Form1: TForm1
         Caption = #1044#1072#1085#1085#1099#1077
         object N12: TMenuItem
           Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100
-          OnClick = Button7Click
+          OnClick = btnLoadTenzorClick
         end
         object N13: TMenuItem
           Caption = #1048#1079' '#1061#1086#1083#1083'. '#1052#1072#1089#1096#1090#1072#1073
@@ -2895,11 +2895,11 @@ object Form1: TForm1
         Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090#1099
         object N16: TMenuItem
           Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100
-          OnClick = Button15Click
+          OnClick = btnSpectrResultClick
         end
         object N17: TMenuItem
           Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
-          OnClick = Button16Click
+          OnClick = btnSpectrResult1Click
         end
       end
     end
@@ -2926,11 +2926,11 @@ object Form1: TForm1
         Enabled = False
         object N30: TMenuItem
           Caption = #1054#1076#1085#1086#1082#1088#1072#1090#1085#1072#1103
-          OnClick = Button17Click
+          OnClick = btnFeatOnceClick
         end
         object N31: TMenuItem
           Caption = #1052#1085#1086#1075#1086#1082#1088#1072#1090#1085#1072#1103
-          OnClick = Button18Click
+          OnClick = btnFeatMultiClick
         end
       end
       object N32: TMenuItem

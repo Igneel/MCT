@@ -29,7 +29,7 @@ uses UnitMain, SysUtils;
   procedure BegRand(N_Make:integer);
     var
     i,j,ii :integer;
-    Params_Old,Params_Best:image;
+    Params_Best:image;
 begin
     Fbefore:=1.e8;
     for ii:=1 to N_Make do  {до 100}                     { Number of steps }
