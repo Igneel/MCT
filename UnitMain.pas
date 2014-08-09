@@ -397,11 +397,18 @@ type
   PImageDat=^ImageDat;  // указатель на массив из двух элементов.
   //ImageDat3=array[0..1] of peakinfo;
   //PImageDat3=^ImageDat3;
-  Data_spektr=array [0..MaxPoints] of extended;
-  mat=array[0..MaxPoints,0..MaxPoints] of extended;
-  Dat1=array[1..MaxPoints] of extended;
-  Dat2=array[1..MaxPoints,1..MaxPoints] of extended;
-  Dat3=array[1..MaxPoints,1..2*MaxPoints] of extended;
+
+
+  Data_spektr=array of extended;
+  mat = array of array of Extended;
+
+  Dat1=array of Extended;
+  Dat2= array of array of Extended;
+  Dat3= array of array of Extended;
+
+  //Dat1=array[1..MaxPoints] of extended;
+  //Dat2=array[1..MaxPoints,1..MaxPoints] of extended;
+  //Dat3=array[1..MaxPoints,1..2*MaxPoints] of extended;
 
 var
   Form1: TForm1;
@@ -476,10 +483,36 @@ begin
   Label46.Caption:='ПРОТОТИП файла .fm';
   Memo16.Lines.LoadFromFile(DefaultDir+'\Data\Farad_Prototype.dat');
   Label39.Caption:='ПРОТОТИП файла .mpc';
+
+  SetLength(MagField_spektr,MaxPoints);
+  SetLength(Gxx,MaxPoints);
+  SetLength(Gxy,MaxPoints);
+  SetLength(GxxExp,MaxPoints);
+  SetLength(GxyExp,MaxPoints);
+
+  SetLength(B_spektr,MaxPoints+1);
+  SetLength(Gxx_sp,MaxPoints+1);
+  SetLength(Gxx_MC,MaxPoints+1);
+  SetLength(Gxy_MC,MaxPoints+1);
+  SetLength(Gxy_sp,MaxPoints+1);
+  SetLength(Xr,MaxPoints+1);
+  SetLength(Lv,MaxPoints+1);
+  SetLength(Xv,MaxPoints+1);
+  SetLength(Mv,MaxPoints+1);
+  SetLength(Vpr,MaxPoints+1);
+
+  SetLength(Am,MaxPoints+1,MaxPoints+1);
+  SetLength(Qm,MaxPoints+1,MaxPoints+1);
+  SetLength(Cl,MaxPoints+1,MaxPoints+1);
+  SetLength(Cr,MaxPoints+1,MaxPoints+1);
+  SetLength(Cl_t,MaxPoints+1,MaxPoints+1);
+  SetLength(Cr_t,MaxPoints+1,MaxPoints+1);
+  SetLength(Cm,MaxPoints+1,MaxPoints+1);
+  SetLength(Cm_t,MaxPoints+1,MaxPoints+1);
+
 end;
 
 procedure TForm1.CreateTabs;
-var j:Integer;
 begin
   
   
@@ -505,16 +538,6 @@ procedure TForm1.WMDrawClipboard(var Msg: TWMDrawClipboard);
 begin
   SendMessage(FNextViewer, WM_DRAWCLIPBOARD, 0, 0);
 end;
-
-
-//////////////////////////////////////////////////////////////////////////////
-//////////////////// НАЧАЛО "ХОЛЛ. МАСШТАБ" //////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////
-/////////////////////// КОНЕЦ "ХОЛЛ. МАСШТАБ"///////////////////////////////
-////////////////////////////////////////////////////////////////////////////
-
 
 ////////////////////////////////////////////////////////////////////////////
 /////////////////////// НАЧАЛО "ХОЛЛ. ПОДВИЖНОСТЬ" /////////////////////////
@@ -584,42 +607,16 @@ begin
 end;
 
 procedure TForm1.Addpoints(Chart:TChart);
-//var sf:extended;
 begin
      with Chart do
       begin
       with BottomAxis do
        begin
-       // Logarithmic:=true;
-       // Automatic:=false;
         Automatic:=True;
-       { sf:=0.05*(Series[0].MaxXValue-Series[0].MinXValue);
-        if (Series[0].MinXValue-sf)>0 then Minimum:=Series[0].MinXValue-sf
-            else Minimum:=0.0005;
-
-       Maximum:=Series[0].MaxXValue+sf;      }
       end;
      with LeftAxis do
       begin
-    //   Logarithmic:=true;
-      // Automatic:=false;
         Automatic:=True;
-      { sf:=0.05*(Series[0].MaxYValue-Series[0].MinYvalue);
-       if (Series[0].MinYValue-sf)>Maximum then
-        begin
-         Maximum:=Series[0].MaxYValue+sf;
-         if (Series[0].MinYValue-sf)>0 then
-                                Minimum:=Series[0].MinYValue-sf
-                                        else
-                                Minimum:=Series[0].MinYValue*0.95;
-        end
-        else begin
-         if (Series[0].MinYValue-sf)>0 then
-                                Minimum:=Series[0].MinYValue-sf
-                                        else
-                                Minimum:=Series[0].MinYValue*0.95;
-         Maximum:=Series[0].MaxYValue+sf;
-        end;                                  }
       end;
      end;
 end;
@@ -718,6 +715,12 @@ begin i:=1; while (X1>X[i]) do inc(i);
  SP:=A+R*(B+R*(P+D*R));
 end;
 begin
+  SetLength(temp_l,MaxPoints);
+  SetLength(temp_t,MaxPoints);
+  SetLength(AGxx,MaxPoints);
+  SetLength(AGxy,MaxPoints);
+  SetLength(AField,MaxPoints);
+
   //Формируем новые матрицы для расчета производных в точке В=0
   AField[0]:=-MagField_spektr[1];
   AGxx[0]:=GxxExp[1];
@@ -831,8 +834,10 @@ procedure gram(N,M,L:word;var x,f:Data_spektr; var a:mat);
 var i,j,k:integer;
     q,r,s:extended;
     t:Data_spektr;
-    p:array [0..MaxPoints,0..5*MaxPoints] of extended;
+    p:array of array of extended;
 begin
+  SetLength(p,MaxPoints,5*MaxPoints);
+  SetLength(t,MaxPoints);
  for i:=0 to N do begin bas(n,m,l,x[i],x,t);
   for j:=0 to m do p[j,i]:=t[j]
  end;
@@ -864,6 +869,7 @@ procedure gauss(N:word;var a:mat; var x:Data_spektr);
 procedure fi(n,m,l:word;var c,x:Data_spektr;var x1,s:extended);
 var i:word;t:Data_spektr;
 begin
+  SetLength(t,MaxPoints);
  s:=c[0];
  bas(n,m,l,x1,x,t);
  for i:=1 to m do s:=s+c[i]*t[i]
@@ -871,6 +877,10 @@ end;
 begin
  {if not(test) then
   begin}
+  SetLength(tmp_m,MaxPoints,MaxPoints);
+  SetLength(coef_t,MaxPoints);
+  SetLength(coef_l,MaxPoints);
+
    Power_spektr:=3;  // какая-то степень, или мощность, сильно похоже на кол-во типов носителей
    Kind:=2;  // разновидности, тоже пока не ясно зачем и что
    // эти вызовы заполняют матрицу tmp_m
@@ -1157,13 +1167,21 @@ function GetElem(j1,k1,i1:word):extended;
 
 procedure MakeMatrC;
 var
- j,k{,i1,i2,i3,i4,i5,i6,i7,i8}:word;
+ j,k:word;
 begin
- fillchar(Cr, Sizeof(Cr), 0);
- fillchar(Cl, Sizeof(Cl), 0);
- fillchar(Cr_t,Sizeof(Cr_t),0);
- fillchar(Cl_t,Sizeof(Cl_t),0);
- fillchar(Am, Sizeof(Am), 0);
+
+ for j:=1 to NumberOfPoints do
+  for k:=1 to NumberOfPoints do
+  begin
+    Cr[j,k]:=0;
+    Cl[j,k]:=0;
+    Cr_t[j,k]:=0;
+    Cl_t[j,k]:=0;
+    Am[j,k]:=0;
+
+    end;
+
+
  for j:=1 to NumberOfPoints do
   for k:=1 to NumberOfPoints do begin
    if j=1 then Cr[j,k]:=1 else
@@ -1175,7 +1193,12 @@ end;
 procedure MakeMatrA;
  var i,j,k:word;
  begin
-  fillchar(Am,sizeof(Am),0);
+  for j:=1 to NumberOfPoints do
+  for k:=1 to NumberOfPoints do begin
+    Am[j,k]:=0;
+    end;
+
+
   for i:=1 to NumberOfPoints do
    for j:=1 to NumberOfPoints do
     if odd(i+j) then
@@ -1192,6 +1215,7 @@ procedure InverseMatrC(var Ci:dat2;var C:dat2;var Su:extended;NP:word);
        at:dat3;
        sr:extended;
   begin
+    SetLength(at,MaxPoints+1,2*MaxPoints+1);
   for i:=1 to Np do
    for j:=1 to NP do
       at[i,j]:=Ci[i,j];
@@ -1380,13 +1404,6 @@ begin
         MessageDlg('File I/O error.', mtError, [mbOk], 0);
        end;
     end;
-    {for i:=0 to 10 do
-    StringGrid4.Cells[0,i]:=FloatToStr(MagField_spektr[i]);
-    for i:=0 to 10 do
-    StringGrid4.Cells[1,i]:=FloatToStr(GxxExp[i]);
-    for i:=0 to 10 do
-    StringGrid4.Cells[2,i]:=FloatToStr(GxyExp[i]);
-    Label23.Caption:=IntToStr(NumberofPoints); }
    Label22.Caption:=OpenDialog2.FileName;
    MakeMNK(true);
    MobilitySpectrum;  // спектр подвижности. Начало.
@@ -1436,6 +1453,33 @@ end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
+
+  SetLength(MagField_spektr,0);
+  SetLength(Gxx,0);
+  SetLength(Gxy,0);
+  SetLength(GxxExp,0);
+  SetLength(GxyExp,0);
+
+  SetLength(B_spektr,0);
+  SetLength(Gxx_sp,0);
+  SetLength(Gxx_MC,0);
+  SetLength(Gxy_MC,0);
+  SetLength(Gxy_sp,0);
+  SetLength(Xr,0);
+  SetLength(Lv,0);
+  SetLength(Xv,0);
+  SetLength(Mv,0);
+  SetLength(Vpr,0);
+
+  SetLength(Am,0,0);
+  SetLength(Qm,0,0);
+  SetLength(Cl,0,0);
+  SetLength(Cr,0,0);
+  SetLength(Cl_t,0,0);
+  SetLength(Cr_t,0,0);
+  SetLength(Cm,0,0);
+  SetLength(Cm_t,0,0);
+
 if IntMagField<>nil then freemem(IntMagField);
    if IntGxx<>nil then freemem(IntGxx);
    if IntGxy<>nil then freemem(IntGxy);
