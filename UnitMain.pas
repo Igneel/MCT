@@ -285,6 +285,11 @@ type
     Memo8: TMemo;
     Label73: TLabel;
     btnFeat: TButton;
+    btnSaveSpectr: TButton;
+    edt1: TEdit;
+    edt2: TEdit;
+    btn1: TButton;
+    btn2: TButton;
     procedure CreateTabs;
     procedure FormCreate(Sender: TObject);
 
@@ -377,6 +382,9 @@ type
     procedure Button34Click(Sender: TObject);
     procedure Button35Click(Sender: TObject);
     procedure btnFeatClick(Sender: TObject);
+    procedure btnSaveSpectrClick(Sender: TObject);
+    procedure btn1Click(Sender: TObject);
+    procedure btn2Click(Sender: TObject);
 
 
   private
@@ -1327,7 +1335,10 @@ begin
      Series[0].Clear;
      Series[1].Clear;
     end;
-   Lmin:=MSLeft;LMax:=MSRight;
+   //Lmin:=MSLeft;LMax:=MSRight;
+    
+   Lmin:=StrToInt(edt1.Text);
+   Lmax:=StrToInt(edt2.Text);
    SizeData:=(Lmax-Lmin+1)*sizeof(ImageDat);
    InitArray2;
    k:=0;
@@ -1344,9 +1355,9 @@ begin
        chtSpectr.Series[1].AddXY(Mobility^[k],Spectr_p^[k],'',clTeeColor);
        sf:=lm*exp(j/PointPerInt*ln(10));
        inc(k);
-       if sf>10 then break;
+       //if sf>10 then break;
       end;
-     if sf>10 then break;
+    // if sf>10 then break;
     end;
     GridPoints:=k-1;
    AddPoints2;
@@ -1946,15 +1957,113 @@ begin
   begin
      Writeln(Data_File,mmoFeatFunctionValue.Lines[mmoFeatFunctionValue.Lines.Count-1]);
      Writeln(Data_File,mmoFeatMuElectronValue.Lines[mmoFeatMuElectronValue.Lines.Count-1]
-     +'	'+MemoMnog3.Lines[MemoMnog3.Lines.Count-1]
-     +'	'+MemoMnog4.Lines[MemoMnog4.Lines.Count-1]
-     +'	'+mmoConcentrationElectrons.Lines[mmoConcentrationElectrons.Lines.Count-1]
-     +'	'+MemoMnog6.Lines[MemoMnog6.Lines.Count-1]
-     +'	'+MemoMnog7.Lines[MemoMnog7.Lines.Count-1]);
+     +' '+MemoMnog3.Lines[MemoMnog3.Lines.Count-1]
+     +' '+MemoMnog4.Lines[MemoMnog4.Lines.Count-1]
+     +' '+mmoConcentrationElectrons.Lines[mmoConcentrationElectrons.Lines.Count-1]
+     +' '+MemoMnog6.Lines[MemoMnog6.Lines.Count-1]
+     +' '+MemoMnog7.Lines[MemoMnog7.Lines.Count-1]);
      for i:=0 to NPoint-1 do
-     Writeln(Data_File,FloatToStr(MagField_Spektr[i])+'	'+
-     FloatToStr(GxxExp[i])+'	'+FloatToStr(GxyExp[i])+'	'+
-     FloatToStr(Gxx[i])+'	'+FloatToStr(Gxy[i]));
+     Writeln(Data_File,FloatToStr(MagField_Spektr[i])+' '+
+     FloatToStr(GxxExp[i])+' '+FloatToStr(GxyExp[i])+' '+
+     FloatToStr(Gxx[i])+' '+FloatToStr(Gxy[i]));
+
+     //----------------------------------------------
+
+     // Сохраняем средние значения параметров:
+     Writeln(Data_File,'Средние значения параметров');
+     Writeln(Data_File, Form4.Edit8.Text
+     +' '+Form4.Edit9.Text
+     +' '+Form4.Edit10.Text
+     +' '+Form4.Edit11.Text
+     +' '+Form4.Edit12.Text
+     +' '+Form4.Edit13.Text);
+
+     // Сохраняем СКО:
+     Writeln(Data_File,'СКО');
+     Writeln(Data_File, Form4.Edit15.Text
+     +' '+Form4.Edit16.Text
+     +' '+Form4.Edit17.Text
+     +' '+Form4.Edit18.Text
+     +' '+Form4.Edit19.Text
+     +' '+Form4.Edit20.Text);
+
+     // Сохраняем СКО %:
+     Writeln(Data_File,'СКО, %');
+     Writeln(Data_File, Form4.Edit22.Text
+     +' '+Form4.Edit23.Text
+     +' '+Form4.Edit24.Text
+     +' '+Form4.Edit25.Text
+     +' '+Form4.Edit26.Text
+     +' '+Form4.Edit27.Text);
+
+     Writeln(Data_File,'Средние значения целевой функции');
+     Writeln(Data_File, Form4.Edit7.Text
+     +' '+Form4.Edit14.Text
+     +' '+Form4.Edit21.Text
+     +' '+Form4.Edit28.Text);
+
+     Writeln(Data_File,'Гистограммы.');
+     Writeln(Data_File,'Подвижность электронов.');
+     with(Form4) do
+     begin  
+       for i:=0 to Series1.XValues.Count-1 do
+       begin
+              Writeln(Data_File,FloatToStr(Series1.XValues[i])
+              +' '+ FloatToStr(Series1.YValues[i]));
+       end;
+     end;
+
+     Writeln(Data_File,'Подвижность легких дырок.');
+     with(Form4) do
+     begin  
+       for i:=0 to Series1.XValues.Count-1 do
+       begin
+              Writeln(Data_File,FloatToStr(Series1.XValues[i])
+              +' '+ FloatToStr(Series1.YValues[i]));
+       end;
+     end;
+
+     Writeln(Data_File,'Подвижность тяжелых дырок.');
+     with(Form4) do
+     begin  
+       for i:=0 to Series1.XValues.Count-1 do
+       begin
+              Writeln(Data_File,FloatToStr(Series1.XValues[i])
+              +' '+ FloatToStr(Series1.YValues[i]));
+       end;
+     end;
+
+     Writeln(Data_File,'Концентрация электронов.');
+     with(Form4) do
+     begin  
+       for i:=0 to Series1.XValues.Count-1 do
+       begin
+              Writeln(Data_File,FloatToStr(Series1.XValues[i])
+              +' '+ FloatToStr(Series1.YValues[i]));
+       end;
+     end;
+
+     Writeln(Data_File,'Концентрация легких дырок.');
+     with(Form4) do
+     begin  
+       for i:=0 to Series1.XValues.Count-1 do
+       begin
+              Writeln(Data_File,FloatToStr(Series1.XValues[i])
+              +' '+ FloatToStr(Series1.YValues[i]));
+       end;
+     end;
+
+     Writeln(Data_File,'Концентрация тяжелых дырок.');
+     with(Form4) do
+     begin  
+       for i:=0 to Series1.XValues.Count-1 do
+       begin
+              Writeln(Data_File,FloatToStr(Series1.XValues[i])
+              +' '+ FloatToStr(Series1.YValues[i]));
+       end;
+     end;
+
+     //----------------------------------------------
      CloseFile(Data_File);
   end;
 end;
@@ -3269,7 +3378,52 @@ procedure TForm1.btnFeatClick(Sender: TObject);
 begin
 PageControl1.TabIndex:=2;
 Button12.Click;
+//Button27.Click;
 PageControl3.TabIndex:=1;
+end;
+
+procedure TForm1.btnSaveSpectrClick(Sender: TObject);
+var i:word;
+    F:textFile;
+begin
+  if SDSpektrRes.Execute then
+   begin
+   AssignFile(F, SDSpektrRes.FileName);
+    try
+      Rewrite(F);
+
+      for i:=0 to chtSpectr.Series[0].Count-1 do
+        Writeln(F,chtSpectr.Series[0].XValue[i],' ',chtSpectr.Series[0].YValue[i],' ',
+           chtSpectr.Series[1].YValue[i]);
+      CloseFile(F);
+    except
+      on EInOutError do
+        MessageDlg('File I/O error.', mtError, [mbOk], 0);
+    end;
+  end;
+
+end;
+
+procedure TForm1.btn1Click(Sender: TObject);
+begin
+  // Результаты спектра
+btnSpectrResult1.Click;
+  // Сам спектр
+btnSaveSpectr.Click;
+  // Результаты подгонки
+btnSaveFeatResults.Click;
+
+
+end;
+
+procedure TForm1.btn2Click(Sender: TObject);
+begin
+Series5.Clear;
+     LineSeries1.Clear;   {чистим графики моя вставка}
+     Label22.Caption:=OpenDialog2.FileName;
+   MakeMNK(true);
+   MobilitySpectrum; 
+     
 end;
 
 end.

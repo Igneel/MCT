@@ -1,10 +1,10 @@
 object Form1: TForm1
-  Left = 197
-  Top = 182
+  Left = 154
+  Top = 250
   BorderStyle = bsSingle
   Caption = #1050#1056#1058
   ClientHeight = 633
-  ClientWidth = 1079
+  ClientWidth = 1003
   Color = clBtnFace
   TransparentColorValue = clCream
   Font.Charset = DEFAULT_CHARSET
@@ -21,7 +21,7 @@ object Form1: TForm1
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 1079
+    Width = 1003
     Height = 633
     ActivePage = TabSheet2
     Align = alClient
@@ -249,6 +249,15 @@ object Form1: TForm1
             TabOrder = 0
             OnClick = btnLoadTenzorClick
           end
+          object btn2: TButton
+            Left = 8
+            Top = 56
+            Width = 153
+            Height = 25
+            Caption = #1055#1077#1088#1077#1089#1095#1080#1090#1072#1090#1100
+            TabOrder = 1
+            OnClick = btn2Click
+          end
         end
         object GroupBox10: TGroupBox
           Left = 200
@@ -289,13 +298,38 @@ object Form1: TForm1
           end
         end
         object btnFeat: TButton
-          Left = 440
-          Top = 536
+          Left = 528
+          Top = 560
           Width = 75
           Height = 25
           Caption = #1044#1072#1083#1077#1077
           TabOrder = 5
           OnClick = btnFeatClick
+        end
+        object btnSaveSpectr: TButton
+          Left = 384
+          Top = 504
+          Width = 161
+          Height = 25
+          Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1089#1087#1077#1082#1090#1088
+          TabOrder = 6
+          OnClick = btnSaveSpectrClick
+        end
+        object edt1: TEdit
+          Left = 384
+          Top = 536
+          Width = 41
+          Height = 27
+          TabOrder = 7
+          Text = '-3'
+        end
+        object edt2: TEdit
+          Left = 424
+          Top = 536
+          Width = 41
+          Height = 27
+          TabOrder = 8
+          Text = '1'
         end
       end
       object GroupBox6: TGroupBox
@@ -471,7 +505,7 @@ object Form1: TForm1
       object PageControl3: TPageControl
         Left = 0
         Top = 0
-        Width = 1071
+        Width = 995
         Height = 605
         ActivePage = TabSheet10
         Align = alClient
@@ -594,7 +628,7 @@ object Form1: TForm1
           ImageIndex = 1
           ParentFont = False
           object Label34: TLabel
-            Left = 680
+            Left = 608
             Top = 488
             Width = 194
             Height = 19
@@ -607,7 +641,7 @@ object Form1: TForm1
             ParentFont = False
           end
           object Label37: TLabel
-            Left = 360
+            Left = 288
             Top = 400
             Width = 61
             Height = 19
@@ -620,7 +654,7 @@ object Form1: TForm1
             ParentFont = False
           end
           object Label35: TLabel
-            Left = 880
+            Left = 808
             Top = 488
             Width = 179
             Height = 19
@@ -633,7 +667,7 @@ object Form1: TForm1
             ParentFont = False
           end
           object Label33: TLabel
-            Left = 496
+            Left = 424
             Top = 488
             Width = 181
             Height = 19
@@ -646,7 +680,7 @@ object Form1: TForm1
             ParentFont = False
           end
           object Label26: TLabel
-            Left = 888
+            Left = 816
             Top = 400
             Width = 172
             Height = 19
@@ -659,7 +693,7 @@ object Form1: TForm1
             ParentFont = False
           end
           object Label25: TLabel
-            Left = 696
+            Left = 624
             Top = 400
             Width = 187
             Height = 19
@@ -672,7 +706,7 @@ object Form1: TForm1
             ParentFont = False
           end
           object Label24: TLabel
-            Left = 496
+            Left = 424
             Top = 400
             Width = 178
             Height = 19
@@ -687,7 +721,7 @@ object Form1: TForm1
           object GroupBox12: TGroupBox
             Left = 0
             Top = 485
-            Width = 225
+            Width = 153
             Height = 89
             Caption = #1055#1086#1076#1075#1086#1085#1082#1072
             Color = cl3DLight
@@ -702,7 +736,7 @@ object Form1: TForm1
             object btnFeatMulti: TButton
               Left = 16
               Top = 56
-              Width = 193
+              Width = 121
               Height = 25
               Caption = #1052#1085#1086#1075#1086#1082#1088#1072#1090#1085#1072#1103
               Enabled = False
@@ -718,7 +752,7 @@ object Form1: TForm1
             object btnFeatOnce: TButton
               Left = 16
               Top = 24
-              Width = 193
+              Width = 121
               Height = 25
               Caption = #1054#1076#1085#1086#1082#1088#1072#1090#1085#1072#1103
               Enabled = False
@@ -793,7 +827,7 @@ object Form1: TForm1
             end
           end
           object MemoMnog4: TMemo
-            Left = 880
+            Left = 808
             Top = 424
             Width = 177
             Height = 57
@@ -809,7 +843,7 @@ object Form1: TForm1
             WordWrap = False
           end
           object MemoMnog7: TMemo
-            Left = 880
+            Left = 808
             Top = 504
             Width = 177
             Height = 65
@@ -825,7 +859,7 @@ object Form1: TForm1
             WordWrap = False
           end
           object MemoMnog6: TMemo
-            Left = 696
+            Left = 624
             Top = 504
             Width = 177
             Height = 65
@@ -841,7 +875,7 @@ object Form1: TForm1
             WordWrap = False
           end
           object mmoConcentrationElectrons: TMemo
-            Left = 496
+            Left = 424
             Top = 504
             Width = 193
             Height = 65
@@ -857,7 +891,7 @@ object Form1: TForm1
             WordWrap = False
           end
           object MemoMnog3: TMemo
-            Left = 696
+            Left = 624
             Top = 424
             Width = 177
             Height = 57
@@ -873,7 +907,7 @@ object Form1: TForm1
             WordWrap = False
           end
           object mmoFeatMuElectronValue: TMemo
-            Left = 496
+            Left = 424
             Top = 424
             Width = 193
             Height = 57
@@ -889,7 +923,7 @@ object Form1: TForm1
             WordWrap = False
           end
           object mmoFeatFunctionValue: TMemo
-            Left = 304
+            Left = 232
             Top = 424
             Width = 185
             Height = 57
@@ -907,7 +941,7 @@ object Form1: TForm1
           object Chart4: TChart
             Left = 0
             Top = 0
-            Width = 545
+            Width = 497
             Height = 393
             BackWall.Brush.Color = clWhite
             BackWall.Brush.Style = bsClear
@@ -952,9 +986,9 @@ object Form1: TForm1
             end
           end
           object Chart7: TChart
-            Left = 542
+            Left = 494
             Top = 0
-            Width = 521
+            Width = 491
             Height = 393
             BackWall.Brush.Color = clWhite
             BackWall.Brush.Style = bsClear
@@ -999,9 +1033,9 @@ object Form1: TForm1
             end
           end
           object GroupBox14: TGroupBox
-            Left = 232
+            Left = 160
             Top = 485
-            Width = 249
+            Width = 105
             Height = 89
             Caption = #1056#1077#1079#1091#1083#1100#1090#1072#1090#1099
             Color = cl3DLight
@@ -1014,9 +1048,9 @@ object Form1: TForm1
             ParentFont = False
             TabOrder = 11
             object btnLoadFeatResults: TButton
-              Left = 48
+              Left = 8
               Top = 24
-              Width = 153
+              Width = 81
               Height = 25
               Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100
               Font.Charset = RUSSIAN_CHARSET
@@ -1029,9 +1063,9 @@ object Form1: TForm1
               OnClick = btnLoadFeatResultsClick
             end
             object btnSaveFeatResults: TButton
-              Left = 48
+              Left = 8
               Top = 56
-              Width = 153
+              Width = 81
               Height = 25
               Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100
               Font.Charset = RUSSIAN_CHARSET
@@ -1045,7 +1079,7 @@ object Form1: TForm1
             end
           end
           object Pnl_Pr_Hall8: TPanel
-            Left = 480
+            Left = 432
             Top = 360
             Width = 129
             Height = 25
@@ -1058,6 +1092,21 @@ object Form1: TForm1
             ParentFont = False
             TabOrder = 12
           end
+          object btn1: TButton
+            Left = 264
+            Top = 504
+            Width = 161
+            Height = 49
+            Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074#1089#1105' \(^_^)/'
+            Font.Charset = RUSSIAN_CHARSET
+            Font.Color = clNavy
+            Font.Height = -16
+            Font.Name = 'Times New Roman'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 13
+            OnClick = btn1Click
+          end
         end
       end
     end
@@ -1067,7 +1116,7 @@ object Form1: TForm1
       object PageControl2: TPageControl
         Left = 0
         Top = 0
-        Width = 1071
+        Width = 995
         Height = 605
         ActivePage = TabSheet6
         Align = alClient
@@ -1172,7 +1221,7 @@ object Form1: TForm1
           object Memo16: TMemo
             Left = 248
             Top = 24
-            Width = 801
+            Width = 729
             Height = 537
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clBlack
@@ -1734,7 +1783,7 @@ object Form1: TForm1
       object PageControl4: TPageControl
         Left = 0
         Top = 0
-        Width = 1071
+        Width = 995
         Height = 605
         ActivePage = TabSheet8
         Align = alClient
@@ -1835,7 +1884,7 @@ object Form1: TForm1
           object Memo7: TMemo
             Left = 248
             Top = 24
-            Width = 801
+            Width = 737
             Height = 537
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clBlack
@@ -2594,7 +2643,7 @@ object Form1: TForm1
       object Memo5: TMemo
         Left = 544
         Top = 0
-        Width = 529
+        Width = 449
         Height = 393
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clBlack
@@ -3025,8 +3074,8 @@ object Form1: TForm1
   object SDHallData: TSaveDialog
     DefaultExt = 'dath'
     Filter = #1061#1086#1083#1083#1086#1074#1089#1082#1080#1077' '#1076#1072#1085#1085#1099#1077' (*.DATH)|*.dath'
-    Left = 660
-    Top = 80
+    Left = 772
+    Top = 200
   end
   object OpenDialogHRes: TOpenDialog
     Filter = #1061#1086#1083#1083'. '#1052#1072#1089#1096#1090#1072#1073' (*.HM)|*.hm'
@@ -3036,14 +3085,15 @@ object Form1: TForm1
   object SDHallResults: TSaveDialog
     DefaultExt = 'hm'
     Filter = #1061#1086#1083#1083'. '#1052#1072#1089#1096#1090#1072#1073' (*.HM)|*.hm'
-    Left = 736
-    Top = 64
+    Left = 696
+    Top = 192
   end
   object SDSpektrRes: TSaveDialog
     DefaultExt = 'hs'
     Filter = #1056#1077#1079#1091#1083#1100#1090#1072#1090#1099' '#1061#1086#1083#1083'. '#1057#1087#1077#1082#1090#1088' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080' (*.HS)|*.hs|'#1042#1089#1077' '#1092#1072#1081#1083#1099'|*.*'
-    Left = 608
-    Top = 40
+    Title = #1057#1086#1093#1088#1072#1085#1077#1085#1080#1077' '#1088#1077#1079#1091#1083#1100#1090#1072#1090#1086#1074' '#1089#1087#1077#1082#1090#1088#1072' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080
+    Left = 616
+    Top = 136
   end
   object ODSpektrRes: TOpenDialog
     Filter = #1056#1077#1079#1091#1083#1100#1090#1072#1090#1099' '#1061#1086#1083#1083'. '#1057#1087#1077#1082#1090#1088' '#1087#1086#1076#1074#1080#1078#1085#1086#1089#1090#1080' (*.HS)|*.hs|'#1042#1089#1077' '#1092#1072#1081#1083#1099'|*.*'

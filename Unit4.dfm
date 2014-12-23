@@ -1,6 +1,6 @@
 object Form4: TForm4
-  Left = 265
-  Top = 136
+  Left = 244
+  Top = 138
   BorderStyle = bsDialog
   Caption = #1043#1080#1089#1090#1086#1075#1088#1072#1084#1084#1099
   ClientHeight = 746
