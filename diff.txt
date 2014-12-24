@@ -1,0 +1,26 @@
+ 		1082	         if (b1+sf)>Minimum then Maximum:=b1+sf; 
+599	         if (b2-sf)>0 then 	1083	         if (b2-sf)>0 then 
+600	                       Minimum:=b2-sf 	1084	                       Minimum:=b2-sf 
+601	                      else 	1085	                      else 
+602	                       Minimum:=b2*0.95; 	1086	                       Minimum:=b2*0.95; 
+603	         Maximum:=b1+sf;	1087	//         Maximum:=b1+sf; 
+604	        end; 	1088	        end; 
+605	      end; 	1089	      end; 
+606	    end; 	1090	    end; 
+607	end; 	1091	end; 
+
+
+
+
+
+1543	     	2028	    for i:=0 to StringGrid2.RowCount-2 do 
+ 		2029	    Readln(Data_File,Magfield_spektr[i],GxxExp[i],GxyExp[i]); 
+
+
+1552	     	2038	    NumberOfPoints:=StringGrid2.RowCount-2; 
+
+// кажется это сохранение графика спектра
+
+ 		1593	     	2080	    for i:=0 to StringGrid2.RowCount-2 do 
+ 		2081	    Writeln(Data_File,Magfield_spektr[i],'	',GxxExp[i],'	',GxyExp[i]); 
+1594	          // GxxExp и GxxExp в спектре подвижности играют роль экспериментальных 	2082	          // GxxExp и GxxExp в спектре подвижности играют роль экспериментальных 

@@ -21,6 +21,9 @@ const
   PointPerInt=50;
   MaxParameters=8;    // ћаксимальное число параметров
   MaxRepeat=100;      // ћаксимальное число повторов
+
+  ElectronCharge=1.60217656535E-19;//  л
+
 type
   EditArray = array[1..36] of TEdit;
   SeriesArray = array[1..9] of TBarSeries;  
@@ -386,6 +389,8 @@ type
     procedure btn1Click(Sender: TObject);
     procedure btn2Click(Sender: TObject);
 
+    function calcExtremum():Integer;
+    function FindExtremum(dif:array of Extended; FirstIndex:Integer;DifLength:Integer):Integer;
 
   private
    FNextViewer:HWnd;
@@ -466,7 +471,7 @@ procedure TForm1.FormCreate(Sender: TObject);// создане формы
 begin
   CreateTabs;  // заполнение таблиц
   DefaultDir:=GetCurrentDir;
-  e:=1.602176487*Power(10,-19);
+  e:=ElectronCharge;
   DecimalSeparator:=',';
   FnextViewer:=SetClipboardViewer(Handle);
   GraphON_FME:=True;  // графики включены
@@ -1418,6 +1423,8 @@ begin
    Label22.Caption:=OpenDialog2.FileName;
    MakeMNK(true);
    MobilitySpectrum;  // спектр подвижности. Ќачало.
+
+   calcExtremum();
  end;
 end;
 
@@ -1438,7 +1445,7 @@ with chtSpectr do
       begin
        G_p:=Series5.YValue[ind];
        Mu:=Series5.XValue[ind];
-       con_p:=g_p/(mu*1.602e-19);
+       con_p:=g_p/(mu*ElectronCharge);
        StringGrid3.Cells[1,RowInFocus]:=FloatToStr(con_p);
        StringGrid3.Cells[2,RowInFocus]:=FloatToStr(Mu);
        if RowInFocus<3 then
@@ -1450,7 +1457,7 @@ with chtSpectr do
       begin
        G_e:=LineSeries1.YValue[ind2];
        Mu:=Series5.XValue[ind2];
-       con_e:=g_e/(mu*1.602e-19);
+       con_e:=g_e/(mu*ElectronCharge);
        StringGrid3.Cells[1,RowInFocus]:=FloatToStr(-con_e);
        StringGrid3.Cells[2,RowInFocus]:=FloatToStr(-Mu);
        if RowInFocus<3 then
@@ -3422,8 +3429,91 @@ Series5.Clear;
      LineSeries1.Clear;   {чистим графики мо€ вставка}
      Label22.Caption:=OpenDialog2.FileName;
    MakeMNK(true);
-   MobilitySpectrum; 
-     
+   MobilitySpectrum;
+   calcExtremum();
+
 end;
+
+function TForm1.FindExtremum(dif:array of Extended; FirstIndex:Integer;DifLength:Integer):Integer;
+var i:Integer;
+begin
+  i:=FirstIndex;
+
+  while (i<DifLength) and (dif[i]<0) do  // пропускаем отрицательные
+  begin
+    i:=i+1;
+  end;
+  while (i<DifLength)and (dif[i]>0)  do  // идем до конца положительных
+  begin
+    i:=i+1;
+  end;
+  Result:=i-1;
+end;
+
+function TForm1.calcExtremum():Integer;
+    var dif1,dif2: array of Extended;
+Mu,G_e,G_p,con_p,con_e:extended;
+    i:Word;
+    begin
+      with(chtSpectr) do
+      begin
+        SetLength(dif1,Series[0].XValues.Count);
+        SetLength(dif2,Series[1].XValues.Count);
+        for i:=1 to Series[0].XValues.Count-1 do
+        begin
+          dif1[i]:=Series5.YValue[i]-Series5.YValue[i-1];
+          dif2[i]:=LineSeries1.YValue[i]-LineSeries1.YValue[i-1];
+        end;
+
+        i:=FindExtremum(dif1,1,Series[0].XValues.Count);
+        // возвращаемс€ на последнее положительное значение
+        //-------------------------
+        with chtSpectr do
+         begin
+             G_p:=Series5.YValue[i];
+             Mu:=Series5.XValue[i];
+             con_p:=g_p/(mu*ElectronCharge);
+             StringGrid3.Cells[1,RowInFocus]:=FloatToStr(con_p);
+             StringGrid3.Cells[2,RowInFocus]:=FloatToStr(Mu);
+             if RowInFocus<3 then
+               Inc(RowInFocus)
+             else
+               RowInFocus:=1;
+         end;
+
+         i:=FindExtremum(dif1,i+1,Series[0].XValues.Count);
+
+         with chtSpectr do
+         begin
+             G_p:=Series5.YValue[i];
+             Mu:=Series5.XValue[i];
+             con_p:=g_p/(mu*ElectronCharge);
+             StringGrid3.Cells[1,RowInFocus]:=FloatToStr(con_p);
+             StringGrid3.Cells[2,RowInFocus]:=FloatToStr(Mu);
+             if RowInFocus<3 then
+               Inc(RowInFocus)
+             else
+               RowInFocus:=1;
+         end;
+
+         i:=FindExtremum(dif2,1,Series[0].XValues.Count);
+        with chtSpectr do
+         begin
+             G_e:=LineSeries1.YValue[i];
+             Mu:=LineSeries1.XValue[i];
+             con_p:=g_e/(mu*ElectronCharge);
+             StringGrid3.Cells[1,RowInFocus]:=FloatToStr(-con_p);
+             StringGrid3.Cells[2,RowInFocus]:=FloatToStr(-Mu);
+             if RowInFocus<3 then
+               Inc(RowInFocus)
+             else
+               RowInFocus:=1;
+         end;
+
+      end;  
+            ;
+      //chtSpectr.Series[0].XValue[i],' ',chtSpectr.Series[0].YValue[i],' ',
+      //     chtSpectr.Series[1].YValue[i]);
+    end;  
 
 end.
