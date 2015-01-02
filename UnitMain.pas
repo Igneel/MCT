@@ -480,11 +480,7 @@ begin
   // из Спектра подвижности
   MSLeft:=-2;
   MSRight:=1;
-  Coef1:=2.1;
-  Coef2:=1.6;
-  Mu_min:=0.01;
-  Mu_max:=100;
-  Min_Spectr:=1e-4;
+  
   RowInFocus:=1;
   SetGridFocus(StringGrid3,RowInFocus);
   AssignFile(Config_File,DefaultDir+'\Data\Config.txt');
