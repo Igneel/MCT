@@ -2019,50 +2019,50 @@ begin
      Writeln(Data_File,'Подвижность легких дырок.');
      with(Form4) do
      begin  
-       for i:=0 to Series1.XValues.Count-1 do
+       for i:=0 to Series2.XValues.Count-1 do
        begin
-              Writeln(Data_File,FloatToStr(Series1.XValues[i])
-              +' '+ FloatToStr(Series1.YValues[i]));
+              Writeln(Data_File,FloatToStr(Series2.XValues[i])
+              +' '+ FloatToStr(Series2.YValues[i]));
        end;
      end;
 
      Writeln(Data_File,'Подвижность тяжелых дырок.');
      with(Form4) do
      begin  
-       for i:=0 to Series1.XValues.Count-1 do
+       for i:=0 to Series3.XValues.Count-1 do
        begin
-              Writeln(Data_File,FloatToStr(Series1.XValues[i])
-              +' '+ FloatToStr(Series1.YValues[i]));
+              Writeln(Data_File,FloatToStr(Series3.XValues[i])
+              +' '+ FloatToStr(Series3.YValues[i]));
        end;
      end;
 
      Writeln(Data_File,'Концентрация электронов.');
      with(Form4) do
      begin  
-       for i:=0 to Series1.XValues.Count-1 do
+       for i:=0 to Series4.XValues.Count-1 do
        begin
-              Writeln(Data_File,FloatToStr(Series1.XValues[i])
-              +' '+ FloatToStr(Series1.YValues[i]));
+              Writeln(Data_File,FloatToStr(Series4.XValues[i])
+              +' '+ FloatToStr(Series4.YValues[i]));
        end;
      end;
 
      Writeln(Data_File,'Концентрация легких дырок.');
      with(Form4) do
      begin  
-       for i:=0 to Series1.XValues.Count-1 do
+       for i:=0 to Series5.XValues.Count-1 do
        begin
-              Writeln(Data_File,FloatToStr(Series1.XValues[i])
-              +' '+ FloatToStr(Series1.YValues[i]));
+              Writeln(Data_File,FloatToStr(Series5.XValues[i])
+              +' '+ FloatToStr(Series5.YValues[i]));
        end;
      end;
 
      Writeln(Data_File,'Концентрация тяжелых дырок.');
      with(Form4) do
      begin  
-       for i:=0 to Series1.XValues.Count-1 do
+       for i:=0 to Series6.XValues.Count-1 do
        begin
-              Writeln(Data_File,FloatToStr(Series1.XValues[i])
-              +' '+ FloatToStr(Series1.YValues[i]));
+              Writeln(Data_File,FloatToStr(Series6.XValues[i])
+              +' '+ FloatToStr(Series6.YValues[i]));
        end;
      end;
 

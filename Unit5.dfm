@@ -1,6 +1,6 @@
 object Form5: TForm5
-  Left = 247
-  Top = 144
+  Left = 299
+  Top = 154
   BorderStyle = bsDialog
   Caption = #1056#1072#1079#1073#1088#1086#1089' '#1079#1085#1072#1095#1077#1085#1080#1081
   ClientHeight = 718
