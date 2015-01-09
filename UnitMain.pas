@@ -425,7 +425,7 @@ type
 
 var
   Form1: TForm1;
-  e:Extended;
+  //e:Extended;
  
   NPoint,NPoint_hm                       :Integer;
   fil, fil_hall8, Data_File, Config_File :text;
@@ -471,7 +471,6 @@ procedure TForm1.FormCreate(Sender: TObject);// создане формы
 begin
   CreateTabs;  // заполнение таблиц
   DefaultDir:=GetCurrentDir;
-  e:=ElectronCharge;
   DecimalSeparator:=',';
   FnextViewer:=SetClipboardViewer(Handle);
   GraphON_FME:=True;  // графики включены
@@ -1690,12 +1689,12 @@ for myi:=0 to NPoint-1 do
   cond1:=Data[4]*Data[1]/(1+sqr(data[1]*Magfield_spektr[myi]));
   cond2:=Data[5]*Data[2]/(1+sqr(data[2]*MagField_spektr[myi]));
   cond3:=Data[6]*Data[3]/(1+sqr(data[3]*MagField_spektr[myi]));
-  Gxx[myi]:=e*(cond1+cond2+cond3);
+  Gxx[myi]:=ElectronCharge*(cond1+cond2+cond3);
   if myi=0 then
    Gxy[0]:=0
   else
    Gxy[myi]:=(cond1*data[1]+cond2*data[2]+cond3*data[3])
-        *MagField_spektr[myi]*e;
+        *MagField_spektr[myi]*ElectronCharge;
   end;
    g:=0;g1:=0;
   for myi:=0 to NPoint-1 do
@@ -3448,7 +3447,7 @@ end;
 
 function TForm1.calcExtremum():Integer;
     var dif1,dif2: array of Extended;
-Mu,G_e,G_p,con_p,con_e:extended;
+Mu,G_e,G_p,con_p:extended;
     i:Word;
     begin
       with(chtSpectr) do
